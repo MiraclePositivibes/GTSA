@@ -1,16 +1,31 @@
-/* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
-  Flex, Text, IconButton, Divider, Heading, Image, Button, useBreakpointValue,
+  Flex,
+  Text,
+  IconButton,
+  Divider,
+  Heading,
+  Image,
+  Button,
+  useBreakpointValue,
   Avatar,
 } from '@chakra-ui/react';
 import {
-  FiMenu, FiHome, FiUser, FiDollarSign,
+  FiMenu,
+  FiHome,
+  FiUser,
+  FiDollarSign,
+  FiDownload,
 } from 'react-icons/fi';
-import { BsGraphUpArrow } from 'react-icons/bs';
+import { RiArrowLeftLine } from 'react-icons/ri';
+import { FaCreditCard, FaGlobe } from 'react-icons/fa';
+import { GrDocument } from 'react-icons/gr';
+import { TbReceiptTax } from 'react-icons/tb';
+import { IoPaperPlaneOutline } from 'react-icons/io5';
+import { BsFillGearFill, BsGraphUpArrow } from 'react-icons/bs';
+import { GoQuestion } from 'react-icons/go';
 import { useLocation } from 'react-router';
 import { Link as reactrouterlink, useNavigate } from 'react-router-dom';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Cookies from 'js-cookie';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import NavItem from './navitem';
@@ -18,14 +33,24 @@ import logo from '../assets/bank-leaf.png';
 import api from '../api';
 import dp from '../assets/PHOTO-2024-03-01-02-09-21.jpg';
 import avatar from '../assets/avatar-icon.webp';
+import useStore from '../store/useStore';
 
 const Sidebar = () => {
-  const [user, setUser] = useState(null);
   const breakpointnavsize = useBreakpointValue({ base: 'small', md: 'large' });
-  const [navSize, setNavSize] = useState(breakpointnavsize);
+  const [navSize, setNavSize] = React.useState(breakpointnavsize);
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
   const navigate = useNavigate();
+
+  const { user, fetchUser } = useStore();
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+
+  useEffect(() => {
+    setNavSize(breakpointnavsize);
+  }, [breakpointnavsize]);
 
   const handleLogout = async () => {
     try {
@@ -37,33 +62,10 @@ const Sidebar = () => {
     }
   };
 
-  const fetchUser = async () => {
-    try {
-      const response = await api.get('/users/me');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching user:', error);
-      return null;
-    // Handle errors (e.g., redirect to login)
-    }
-  };
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const userData = await fetchUser();
-      setUser(userData);
-    };
-
-    fetchUserData();
-  }, []);
-
-  useEffect(() => {
-    setNavSize(breakpointnavsize);
-  }, [breakpointnavsize]);
-
   const toggleNavSize = () => {
     setNavSize(navSize === 'small' ? 'large' : 'small');
   };
+
   return (
     <Flex
       pos="fixed"
@@ -71,18 +73,19 @@ const Sidebar = () => {
       breakpointnavsize="true"
       h="100vh"
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-      w={navSize === 'small' ? 20 : 80}
+      w={navSize === 'small' ? 20 : 44}
       borderRadius={navSize === 'small' ? '2px' : '0'}
       flexDir="column"
-      justifyContent="space-between"
       bgColor="applegreen"
       color="white"
+      justifyContent="flex-start"
     >
       <Flex
         p="15px"
         flexDir="column"
         alignItems={navSize === 'small' ? 'center' : 'flex-start'}
         as="nav"
+        pb={0}
       >
         <Flex>
           <IconButton
@@ -106,11 +109,10 @@ const Sidebar = () => {
             p={2}
             borderRadius={8}
           >
-
-            <Image src={logo} alt="Logo" boxSize="30px" />
+            <Image src={logo} alt="Logo" boxSize="20px" />
             <div>
               <Text
-                fontSize="lg"
+                fontSize="12px"
                 fontWeight="bold"
                 color="white"
                 fontFamily="Atomic Age"
@@ -118,67 +120,221 @@ const Sidebar = () => {
                 my={0}
               >
                 GT Savings Bank
-                <Text
-                  color="applegreen"
-                  display="inline"
-                >
+                <Text color="applegreen" display="inline">
                   .
                 </Text>
               </Text>
             </div>
           </Flex>
         </Flex>
-        <NavItem href="/dashboard" isActive={isActive('/dashboard')} navSize={navSize} icon={FiHome} title="Dashboard" />
-        <NavItem href="/transaction" isActive={isActive('/transaction')} navSize={navSize} icon={FiDollarSign} title="Transactions" active />
-        <NavItem href="/investment" isActive={isActive('/investment')} navSize={navSize} icon={BsGraphUpArrow} title="Investment" />
-        <NavItem navSize={navSize} href="/profile" isActive={isActive('/profile')} icon={FiUser} title="Profile" />
+        <Text
+          p={0}
+          m={0}
+          color="gray.600"
+          fontFamily="noto"
+          fontWeight="semibold"
+          fontSize="xs"
+        >
+          MAIN MENU
+        </Text>
+        <NavItem
+          href="/dashboard"
+          isActive={isActive('/dashboard')}
+          navSize={navSize}
+          icon={FiHome}
+          title="Dashboard"
+          // m={0}
+        />
+        <NavItem
+          href="/transaction"
+          isActive={isActive('/transaction')}
+          navSize={navSize}
+          icon={FiDollarSign}
+          title="Transactions"
+          active
+          // m={0}
+        />
+        <NavItem
+          href="/cards"
+          isActive={isActive('/cards')}
+          navSize={navSize}
+          icon={FaCreditCard}
+          title="Cards"
+          // m={0}
+        />
+        <Text
+          p={0}
+          m={0}
+          color="gray.600"
+          fontFamily="noto"
+          fontWeight="semibold"
+          fontSize="xs"
+        >
+          TRANSFERS
+        </Text>
+        <NavItem
+          href="/withdrawal"
+          isActive={isActive('/withdrawal')}
+          navSize={navSize}
+          icon={IoPaperPlaneOutline}
+          title="Local Transfer"
+        />
+        <NavItem
+          href="/internationalwire"
+          isActive={isActive('/internationalwire')}
+          navSize={navSize}
+          icon={FaGlobe}
+          title="International Wire"
+        />
+        <NavItem
+          href="/deposit"
+          isActive={isActive('/deposit')}
+          navSize={navSize}
+          icon={FiDownload}
+          title="Deposit"
+        />
+        <Text
+          p={0}
+          m={0}
+          color="gray.600"
+          fontFamily="noto"
+          fontWeight="semibold"
+          fontSize="xs"
+        >
+          SERVICES
+        </Text>
+        <NavItem
+          href="/investment"
+          isActive={isActive('/investment')}
+          navSize={navSize}
+          icon={BsGraphUpArrow}
+          title="Investment"
+        />
+        <NavItem
+          href="/loan"
+          isActive={isActive('/loan')}
+          navSize={navSize}
+          icon={GrDocument}
+          title="Loan Request"
+        />
+        <NavItem
+          href="/taxrefund"
+          isActive={isActive('/taxrefund')}
+          navSize={navSize}
+          icon={TbReceiptTax}
+          title="IRS Tax Refund"
+        />
+        <Text
+          p={0}
+          m={0}
+          color="gray.600"
+          fontFamily="noto"
+          fontWeight="semibold"
+          fontSize="xs"
+        >
+          ACCOUNT
+        </Text>
+        <NavItem
+          navSize={navSize}
+          href="/profile"
+          isActive={isActive('/profile')}
+          icon={BsFillGearFill}
+          title="Settings"
+        />
+        <NavItem
+          navSize={navSize}
+          href="/profile"
+          isActive={isActive('/#')}
+          icon={GoQuestion}
+          title="Support Ticket"
+        />
       </Flex>
-      <Button display={{ base: 'block', md: 'none' }} alignSelf="flex-start" as="reactrouterlink" onClick={handleLogout} fontFamily="noto" textDecoration="underline" fontSize="sm" p leftIcon={<ArrowBackIcon _hover={{ color: 'black' }} boxSize={6} />} colorScheme="white" variant="link"> </Button>
       <Button
+        display={{ base: 'block', md: 'none' }}
         alignSelf="flex-start"
         as="reactrouterlink"
-        display={{ base: 'none', md: 'block' }}
+        onClick={handleLogout}
         fontFamily="noto"
+        textDecoration="underline"
         fontSize="sm"
         p
-        leftIcon={<ArrowBackIcon />}
+        leftIcon={<ArrowBackIcon _hover={{ color: 'black' }} boxSize={6} />}
         colorScheme="white"
         variant="link"
-        iscentered="true"
-        onClick={handleLogout}
       >
-        Logout
-
+        {' '}
       </Button>
+      <Divider my={2} display={navSize === 'small' ? 'none' : 'flex'} />
       <Flex
-        p="5%"
+        px={2}
+        my={2}
+        pb="15%"
+        alignSelf="center"
+        justifySelf="center"
+        bgColor="rgba(255, 255, 255, 0.1)"
+        color="black"
+        borderRadius={10}
         flexDir="column"
-        w="100%"
+        w="90%"
         alignItems={navSize === 'small' ? 'center' : 'flex-start'}
         mb={4}
       >
-        <Divider display={navSize === 'small' ? 'none' : 'flex'} />
         {user && (
-          <Flex mt={4} alignItems="center" as={reactrouterlink} to="/profile" _hover={{ textDecoration: 'none' }}>
-            {user.id === 3 ? (
-              <Image
-                borderRadius="full"
-                boxSize={{ base: '50px', sm: '50px' }}
-                src={dp}
-                alt="user"
-                alignSelf="center"
-                objectFit="cover"
-                fallbackSrc={avatar}
-              />
-            ) : (
-              <Avatar size="sm" />
-            )}
-            <Flex flexDir="column" ml={4} display={navSize === 'small' ? 'none' : 'flex'}>
-              <Heading textTransform="capitalize" as="h3" size="sm" mb={0}>{user.fullname}</Heading>
-              <Text color="gray.500" fontFamily="noto" fontWeight="normal" fontSize="sm">User</Text>
+          <Flex mt={4} alignItems="center" _hover={{ textDecoration: 'none' }}>
+            <Avatar size="sm" />
+            <Flex
+              flexDir="column"
+              ml={4}
+              display={navSize === 'small' ? 'none' : 'flex'}
+            >
+              <Heading textTransform="capitalize" as="h5" size="xs" mb={0}>
+                {user.fullname}
+              </Heading>
+              <Text
+                color="gray.700"
+                fontFamily="noto"
+                fontWeight="normal"
+                fontSize="xs"
+              >
+                ID: {user.account_number}
+              </Text>
             </Flex>
           </Flex>
         )}
+        <Flex
+          alignSelf="center"
+          fontFamily="new"
+          width="100%"
+          flexDir="column"
+          alignItems="center"
+          justifyContent="center"
+          pt={6}
+          gap={2}
+        >
+          <Button
+            variant="solid"
+            as={reactrouterlink}
+            to="/profile"
+            colorScheme="green"
+            size="xs"
+            fontSize="xs"
+            leftIcon={<FiUser />}
+            w="100%"
+          >
+            Profile
+          </Button>
+          <Button
+            display={{ base: 'none', md: 'flex' }}
+            variant="outline"
+            colorScheme="red"
+            fontSize="xs"
+            size="xs"
+            w="100%"
+            onClick={handleLogout}
+          >
+            <RiArrowLeftLine /> Logout
+          </Button>
+        </Flex>
       </Flex>
     </Flex>
   );

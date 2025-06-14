@@ -1,6 +1,6 @@
 services:
   - type: static
-    name: gt-savings-investment-app
+    name: GTSA
     env: static
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist

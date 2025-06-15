@@ -3,15 +3,15 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: './',
+  base: '/',
   build: {
     outDir: 'dist',
-    sourcemap: false,
+    assetsDir: 'assets',
+    emptyOutDir: true,
     rollupOptions: {
       input: 'src/main.jsx',
     },
-    assetsDir: 'assets',
-    emptyOutDir: true,
+    sourcemap: false,
   },
   server: {
     port: 3000,

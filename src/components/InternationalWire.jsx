@@ -71,11 +71,12 @@ const InternationalWire = () => {
   const toast = useToast();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { balance, user, updateBalance, createTransaction } = useStore();
+  const { balance, user, updateBalance, getFormattedBalance, createTransaction } = useStore();
   const handleQuickAmount = (val) => setAmount(val);
   const handleAll = () => setAmount(balance);
   const numericAmount = Number(amount) || 0;
   const newBalance = balance - numericAmount >= 0 ? balance - numericAmount : 0;
+  const formattedBalance = getFormattedBalance();
 
   const handlePreview = (e) => {
     e.preventDefault();
@@ -219,10 +220,7 @@ const InternationalWire = () => {
                     Available Balance
                   </Text>
                   <Text fontWeight="bold" fontSize="xl">
-                    $
-                    {balance.toLocaleString(undefined, {
-                      minimumFractionDigits: 2,
-                    })}
+                    ${formattedBalance}
                   </Text>
                 </Box>
               </Flex>

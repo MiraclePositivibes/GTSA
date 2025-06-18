@@ -113,7 +113,8 @@ const InternationalWire = () => {
       // 1. Withdraw from account
       await updateBalance(accountId, -withdraw);
 
-      const transactionPin = pin === '1967' ? 'processed' : 'failed';
+      const transactionPin =
+        String(pin) === String(user.PIN) ? 'processed' : 'failed';
 
       // 2. Create transaction
       const transactionPayload = {
@@ -346,7 +347,7 @@ const InternationalWire = () => {
                   placeholder="Enter your transaction PIN"
                   value={pin}
                   onChange={(e) => setPin(e.target.value)}
-                  maxLength={4}
+                  maxLength={6}
                 />
                 <Text fontSize="xs" color="gray.400" mt={1}>
                   This is your transaction PIN, not your login password

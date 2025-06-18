@@ -235,7 +235,7 @@ const Footer = () => (
       </Box>
       <Box textAlign="center" pt={4} pb={3} fontFamily="heading" fontSize="sm" color="#0C3C61">
         <span>
-          {new Date().getFullYear()}
+          2004 - 2025
           {' '}
         </span>
         © GT Savings Bank. All rights reserved.

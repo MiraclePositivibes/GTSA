@@ -370,7 +370,6 @@ const InternationalWire = () => {
                     placeholder="Enter your transaction PIN"
                     value={pin}
                     onChange={(e) => setPin(e.target.value)}
-                    maxLength={6}
                   />
                   <Text fontSize="xs" color="gray.400" mt={1}>
                     This is your transaction PIN, not your login password

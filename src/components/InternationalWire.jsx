@@ -33,7 +33,7 @@ import {
   HStack,
   Icon,
   useToast,
-  InputRightElement
+  InputRightElement,
 } from '@chakra-ui/react';
 import { RiWallet3Line } from 'react-icons/ri';
 import { FaUser } from 'react-icons/fa';
@@ -78,7 +78,6 @@ const InternationalWire = () => {
     getFormattedBalance,
     updateBalance,
     createTransaction,
-    getStatus,
   } = useStore();
   const handleQuickAmount = (val) => setAmount(val);
   const handleAll = () => setAmount(balance);
@@ -88,7 +87,7 @@ const InternationalWire = () => {
   const formattedBalance = getFormattedBalance();
 
   // User-specific status
-  const currentStatus = getStatus(user?.id);
+  const currentStatus = user?.status || 'Active';
   console.log('Current Status:', currentStatus); // Debug log
   const statusColor =
     {
@@ -368,6 +367,7 @@ const InternationalWire = () => {
                   />
                 </FormControl>
                 <FormControl mb={1}>
+                  <FormLabel fontSize="sm">Transaction PIN</FormLabel>
                   <InputGroup>
                     <Input
                       type={showPin ? 'text' : 'password'}

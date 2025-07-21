@@ -183,13 +183,13 @@ const Sidebar = () => {
           icon={FaGlobe}
           title="International Wire"
         />
-        <NavItem
+{/*         <NavItem
           href="/deposit"
           isActive={isActive('/deposit')}
           navSize={navSize}
           icon={FiDownload}
           title="Deposit"
-        />
+        /> */}
         <Text
           p={0}
           m={0}

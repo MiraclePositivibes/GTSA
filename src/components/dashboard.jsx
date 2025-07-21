@@ -99,9 +99,9 @@ const Dashboard = () => {
   const handleSend = () => {
     navigate('/withdrawal');
   };
-  const handleDeposit = () => {
-    navigate('/deposit');
-  };
+  // const handleDeposit = () => {
+  //   navigate('/deposit');
+  // };
   const handleTransaction = () => {
     navigate('/transaction');
   };
@@ -652,7 +652,7 @@ const Dashboard = () => {
                       flexDir="column"
                       alignItems="center"
                       borderRadius="xl"
-                      onClick={handleDeposit}
+{/*                       onClick={handleDeposit} */}
                     >
                       <Box
                         bgColor="green.400"

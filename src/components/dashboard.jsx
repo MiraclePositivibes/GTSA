@@ -370,19 +370,6 @@ const Dashboard = () => {
                 >
                   <Button
                     as={reactrouterlink}
-                    to="/deposit"
-                    fontSize="sm"
-                    fontWeight="600"
-                    lineHeight="short"
-                    colorScheme="green"
-                    size="sm"
-                    variant="solid"
-                    disabled
-                  >
-                    Deposit
-                  </Button>
-                  <Button
-                    as={reactrouterlink}
                     to="/withdrawal"
                     colorScheme="green"
                     size="sm"

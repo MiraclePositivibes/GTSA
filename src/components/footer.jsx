@@ -50,7 +50,7 @@ const Footer = () => (
         Please call us at
         <Box display="inline" color="applegreen" fontFamily="new" fontSize="lg"> +1(707) 999-4604</Box>
         , email us at
-        <Box display="inline" color="applegreen" fontFamily="new" fontSize="lg"> info@gtsavingsbank.net </Box>
+        <Box display="inline" color="applegreen" fontFamily="new" fontSize="lg"> info@gtsavingsltd.online </Box>
         or click the button below to access our contact form.
       </Text>
       <Button

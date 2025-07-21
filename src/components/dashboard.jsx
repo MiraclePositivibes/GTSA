@@ -411,7 +411,7 @@ const Dashboard = () => {
                 gap={{ base: 0, lg: 3 }}
                 display={{ base: 'flex', slg: 'none' }}
               >
-                <Button
+{/*                 <Button
                   as={reactrouterlink}
                   to="/deposit"
                   fontSize={{ base: 'xs', sm: 'sm' }}
@@ -423,7 +423,7 @@ const Dashboard = () => {
                   variant="solid"
                 >
                   Deposit
-                </Button>
+                </Button> */}
                 <Button
                   as={reactrouterlink}
                   to="/withdrawal"
@@ -436,7 +436,7 @@ const Dashboard = () => {
                   px={8}
                   width={{ base: '30%', slg: 'auto' }}
                 >
-                  Withdraw
+                  Transfer
                 </Button>
               </Flex>
               <Flex

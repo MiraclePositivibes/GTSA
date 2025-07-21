@@ -652,7 +652,6 @@ const Dashboard = () => {
                       flexDir="column"
                       alignItems="center"
                       borderRadius="xl"
-{/*                       onClick={handleDeposit} */}
                     >
                       <Box
                         bgColor="green.400"

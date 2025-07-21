@@ -377,6 +377,7 @@ const Dashboard = () => {
                     colorScheme="green"
                     size="sm"
                     variant="solid"
+                    disabled
                   >
                     Deposit
                   </Button>
